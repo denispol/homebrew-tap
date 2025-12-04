@@ -1,0 +1,33 @@
+name: Update Formula
+
+on:
+  repository_dispatch:
+    types: [update-formula]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update darwin-timeout formula
+        run: |
+          VERSION="${{ github.event.client_payload.version }}"
+          SHA256="${{ github.event.client_payload.sha256 }}"
+          VERSION_NUM="${VERSION#v}"
+          
+          # Update version and sha256 in formula
+          sed -i "s/version \".*\"/version \"${VERSION_NUM}\"/" Formula/darwin-timeout.rb
+          sed -i "s|releases/download/v[^/]*/|releases/download/${VERSION}/|" Formula/darwin-timeout.rb
+          sed -i "s/sha256 \".*\"/sha256 \"${SHA256}\"/" Formula/darwin-timeout.rb
+          
+          cat Formula/darwin-timeout.rb
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Formula/darwin-timeout.rb
+          git commit -m "darwin-timeout ${{ github.event.client_payload.version }}"
+          git push
