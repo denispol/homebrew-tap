@@ -4,11 +4,11 @@
 class DarwinTimeout < Formula
   desc "Run a command with a time limit (GNU timeout clone for Darwin/Apple platforms)"
   homepage "https://github.com/denispol/darwin-timeout"
-  version "1.1.1"
+  version "1.2.0"
   license "MIT"
 
-  url "https://github.com/denispol/darwin-timeout/releases/download/v1.1.1/timeout-macos-universal.tar.gz"
-  sha256 "998692105842a4203bbe6d6f29684f48fe1d741b11531fc40e176235df5ec637"
+  url "https://github.com/denispol/darwin-timeout/releases/download/v1.2.0/timeout-macos-universal.tar.gz"
+  sha256 "48f4d1c2fb778581aecb25cdb7fc3967eaa57af490e183f4a0cb72f16687b00e"
 
   depends_on :macos
 
