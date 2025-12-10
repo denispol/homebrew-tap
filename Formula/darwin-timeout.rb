@@ -7,8 +7,8 @@ class DarwinTimeout < Formula
   version "1.2.0"
   license "MIT"
 
-  url "https://github.com/denispol/darwin-timeout/releases/download/v1.2.0/timeout-macos-universal.tar.gz"
-  sha256 "48f4d1c2fb778581aecb25cdb7fc3967eaa57af490e183f4a0cb72f16687b00e"
+  url "https://github.com/denispol/darwin-timeout/releases/download/v1.3.0/timeout-macos-universal.tar.gz"
+  sha256 "sha256:a605b28824e89192b0860f703a0d560321ce57126f93f67b27a48c3828ec4216"
 
   depends_on :macos
 
