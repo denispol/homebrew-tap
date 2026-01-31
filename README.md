@@ -1,29 +1,36 @@
-homebrew-tap
-============
+# homebrew-tap
 
 Homebrew formulae for my projects.
 
-Install
--------
+## Install
 
     brew tap denispol/tap
 
 Then:
 
-    brew install darwin-timeout
+    brew install procguard
 
 Or directly:
 
-    brew install denispol/tap/darwin-timeout
+    brew install denispol/tap/procguard
 
-Formulae
---------
+## Formulae
 
-| Formula | Description |
-|---------|-------------|
-| [darwin-timeout](https://github.com/denispol/darwin-timeout) | GNU timeout for macOS. 83KB. Survives sleep. |
+| Formula                                            | Description                                                                                             |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| [procguard](https://github.com/denispol/procguard) | Formally verified process supervisor for macOS. Memory limits, sleep-aware timeout, JSON output. 119KB. |
 
-Update
-------
+Both `procguard` and `timeout` commands are installed. Use `procguard` for wall-clock timing (survives sleep) or `timeout` for GNU-compatible active-time behavior.
 
-    brew update && brew upgrade darwin-timeout
+### Migrating from darwin-timeout
+
+The `darwin-timeout` formula has been renamed to `procguard`. To migrate:
+
+```bash
+brew uninstall darwin-timeout
+brew install denispol/tap/procguard
+```
+
+## Update
+
+    brew update && brew upgrade procguard

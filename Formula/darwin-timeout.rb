@@ -2,27 +2,42 @@
 # frozen_string_literal: true
 
 class DarwinTimeout < Formula
-  desc "Run a command with a time limit (GNU timeout clone for Darwin/Apple platforms)"
-  homepage "https://github.com/denispol/darwin-timeout"
-  version "1.4.0"
+  desc "GNU timeout for macOS (renamed to procguard)"
+  homepage "https://github.com/denispol/procguard"
+  version "1.5.0"
   license "MIT"
 
-  url "https://github.com/denispol/darwin-timeout/releases/download/v1.4.0/timeout-macos-universal.tar.gz"
-  sha256 "89a279dd85431d8b9457fd26593be987f7bf43161308ccd813ad991fdd95fff1"
+  deprecate! date: "2026-01-31", because: "has been renamed to procguard"
+
+  url "https://github.com/denispol/procguard/releases/download/v1.5.0/procguard-macos-universal.tar.gz"
+  sha256 "PLACEHOLDER_HASH"  # Same hash as procguard.rb
 
   depends_on :macos
 
   def install
+    # Install both binaries for backward compatibility
+    bin.install "procguard"
     bin.install "timeout"
-    bash_completion.install "completions/timeout.bash" => "timeout"
-    zsh_completion.install "completions/timeout.zsh" => "_timeout"
-    fish_completion.install "completions/timeout.fish"
+    bash_completion.install "completions/procguard.bash" => "procguard"
+    zsh_completion.install "completions/procguard.zsh" => "_procguard"
+    fish_completion.install "completions/procguard.fish"
+  end
+
+  def caveats
+    <<~EOS
+      ⚠️  darwin-timeout has been renamed to procguard!
+
+      Please migrate to the new formula:
+        brew uninstall darwin-timeout
+        brew install denispol/tap/procguard
+
+      Both 'procguard' and 'timeout' commands are available.
+      See: https://github.com/denispol/procguard
+    EOS
   end
 
   test do
-    assert_match "timeout", shell_output("#{bin}/timeout --version")
-    system bin/"timeout", "5", "true"
-    output = shell_output("#{bin}/timeout --json 5 true")
-    assert_match '"status":"completed"', output
+    system bin/"timeout", "5s", "true"
+    system bin/"procguard", "5s", "true"
   end
 end

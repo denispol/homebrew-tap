@@ -11,23 +11,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Update darwin-timeout formula
+      - name: Update procguard formula
         run: |
           VERSION="${{ github.event.client_payload.version }}"
           SHA256="${{ github.event.client_payload.sha256 }}"
           VERSION_NUM="${VERSION#v}"
-          
-          # Update version and sha256 in formula
+
+          # Update procguard formula (primary)
+          sed -i "s/version \".*\"/version \"${VERSION_NUM}\"/" Formula/procguard.rb
+          sed -i "s|releases/download/v[^/]*/|releases/download/${VERSION}/|" Formula/procguard.rb
+          sed -i "s/sha256 \".*\"/sha256 \"${SHA256}\"/" Formula/procguard.rb
+
+          # Update darwin-timeout formula (deprecated, same version/hash)
           sed -i "s/version \".*\"/version \"${VERSION_NUM}\"/" Formula/darwin-timeout.rb
           sed -i "s|releases/download/v[^/]*/|releases/download/${VERSION}/|" Formula/darwin-timeout.rb
           sed -i "s/sha256 \".*\"/sha256 \"${SHA256}\"/" Formula/darwin-timeout.rb
-          
+
+          echo "=== procguard.rb ==="
+          cat Formula/procguard.rb
+          echo ""
+          echo "=== darwin-timeout.rb ==="
           cat Formula/darwin-timeout.rb
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Formula/darwin-timeout.rb
-          git commit -m "darwin-timeout ${{ github.event.client_payload.version }}"
+          git add Formula/procguard.rb Formula/darwin-timeout.rb
+          git commit -m "procguard ${{ github.event.client_payload.version }}"
           git push
