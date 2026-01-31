@@ -10,7 +10,7 @@ class DarwinTimeout < Formula
   deprecate! date: "2026-01-31", because: "has been renamed to procguard"
 
   url "https://github.com/denispol/procguard/releases/download/v1.5.0/procguard-macos-universal.tar.gz"
-  sha256 "PLACEHOLDER_HASH"  # Same hash as procguard.rb
+  sha256 "0c1e4cea8c4af55bddc4cd6ecf76e6154dd3f26d707cdd14b1b0572594a1d943"
 
   depends_on :macos
 

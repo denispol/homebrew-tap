@@ -8,7 +8,7 @@ class Procguard < Formula
   license "MIT"
 
   url "https://github.com/denispol/procguard/releases/download/v1.5.0/procguard-macos-universal.tar.gz"
-  sha256 "PLACEHOLDER_HASH"  # Update after release build
+  sha256 "0c1e4cea8c4af55bddc4cd6ecf76e6154dd3f26d707cdd14b1b0572594a1d943"
 
   depends_on :macos
 
